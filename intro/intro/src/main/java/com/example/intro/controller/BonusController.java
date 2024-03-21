@@ -57,7 +57,6 @@ public class BonusController {
         Double bonus = bonusService.calculateBonus(request.getSalary(), requestedSeason);
         return ResponseEntity.ok(bonus);
     }
-
     @PostMapping("/bonus-company")
     public ResponseEntity<Object> calculateAndSaveBonuses(@ModelAttribute Request request) {
         List<Company> company = companyRepository.findById(request.getCompanyId());
