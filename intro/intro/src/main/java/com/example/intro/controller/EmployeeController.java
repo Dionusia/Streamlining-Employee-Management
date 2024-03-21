@@ -24,22 +24,22 @@ public class EmployeeController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/get-employees")
+    @GetMapping("/get")
     public List<EmployeeDTO> getEmployee(){
         return employeeService.getAllEmployees();
     }
 
-    @PostMapping("/save-employee")
+    @PostMapping("/save")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.saveEmployee(employeeDTO);
     }
 
-    @PutMapping("/update-employee")
+    @PutMapping("/update")
     public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.updateEmployee(employeeDTO);
     }
 
-    @DeleteMapping("/delete-employee")
+    @DeleteMapping("/delete")
     public boolean deleteEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.deleteEmployee(employeeDTO);
     }

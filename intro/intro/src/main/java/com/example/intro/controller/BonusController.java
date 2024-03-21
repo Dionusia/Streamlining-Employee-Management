@@ -25,21 +25,21 @@ public class BonusController {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @GetMapping("/get-bonus")
+    @GetMapping("/get")
     public List<BonusDTO> getBonus(){
         return bonusService.getAllBonus();
     }
 
-    @PostMapping("/save-bonus")
+    @PostMapping("/save")
     public BonusDTO saveBonus(@RequestBody BonusDTO bonusDTO){
         return bonusService.saveBonus(bonusDTO);
     }
 
-    @PutMapping("/update-bonus")
+    @PutMapping("/update")
     public BonusDTO updateBonus(@RequestBody BonusDTO bonusDTO){
         return bonusService.updateBonus(bonusDTO);
     }
-    @DeleteMapping("/delete-bonus")
+    @DeleteMapping("/delete")
     public boolean deleteBonus(@RequestBody BonusDTO bonusDTO){
         return bonusService.deleteBonus(bonusDTO);
     }
