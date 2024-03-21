@@ -55,7 +55,7 @@ public class VacationRequestService {
         Integer remainingDays = employeeService.getRemainingVacationDays(vacationRequestDTO.getEmployee().getId().intValue());
 
         if (days > remainingDays) {
-            throw new IllegalArgumentException("Requested days exceed remaining vacation days for the employee.");
+            throw new IllegalArgumentException("Does not have enough remaining days");
         }
 
         vacationRequestDTO.setStatus(VacationStatus.PENDING);
