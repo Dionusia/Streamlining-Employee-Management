@@ -36,8 +36,7 @@ public class VacationRequest {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Convert(converter = StatusConverter.class)
-    //@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private VacationStatus status;
 
