@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 @Service
 @Transactional
@@ -69,33 +72,26 @@ public class VacationRequestService {
 
         return modelMapper.map(vacationRequest, VacationRequestDTO.class);
     }
+
     public VacationRequestDTO updateVacationRequestStatus(VacationRequestDTO requestDTO) {
         VacationRequest existingRequest = vacationrequestRepository.findById(requestDTO.getId());
 
         if (existingRequest == null) {
             throw new EntityNotFoundException("Vacation request not found with id: " + requestDTO.getId());
         }
+        if (!existingRequest.getStatus().equals(VacationStatus.PENDING)) {
+            throw new IllegalArgumentException("Status cannot be changed. Current status: " + existingRequest.getStatus());
+        }
 
         String status = String.valueOf(requestDTO.getStatus());
 
-        if (VacationStatus.APPROVED.name().equals(status)) {
-            //status approved, reduce requested days from employee's vacation days
-            Integer remainingDays = employeeService.getRemainingVacationDays((int)(long)existingRequest.getEmployee().getId());
-            if (existingRequest.getDays() > remainingDays) {
-                throw new IllegalArgumentException("Requested days exceed remaining vacation days for the employee.");
-            }
+        Map<String, Consumer<VacationRequest>> handle = new HashMap<>();
+        handle.put(VacationStatus.APPROVED.name(), this::handleApproved);
+        handle.put(VacationStatus.REJECTED.name(), this::handleRejected);
 
-            //update remaining vacation days
-            EmployeeDTO employee = employeeService.getEmployeeById((int)(long)existingRequest.getEmployee().getId());
-            int updatedVacationDays = employee.getVacationDays() - existingRequest.getDays();
-            employee.setVacationDays(updatedVacationDays);
-            employeeService.updateEmployee(employee);
-
-            //update status to approved
-            existingRequest.setStatus(VacationStatus.APPROVED);
-        } else if (VacationStatus.REJECTED.name().toLowerCase().equals(status)) {
-            //status rejected, update vacation request status to "rejected"
-            existingRequest.setStatus(VacationStatus.REJECTED);
+        Consumer<VacationRequest> action = handle.get(status);
+        if (action != null) {
+            action.accept(existingRequest);
         } else {
             throw new IllegalArgumentException("Invalid status: " + status);
         }
@@ -103,5 +99,23 @@ public class VacationRequestService {
         vacationrequestRepository.save(existingRequest);
 
         return modelMapper.map(existingRequest, VacationRequestDTO.class);
+    }
+
+    private void handleApproved(VacationRequest existingRequest) {
+        Integer remainingDays = employeeService.getRemainingVacationDays((int) (long) existingRequest.getEmployee().getId());
+        if (existingRequest.getDays() > remainingDays) {
+            throw new IllegalArgumentException("Employee does not have enough days");
+        }
+
+        EmployeeDTO employee = employeeService.getEmployeeById((int) (long) existingRequest.getEmployee().getId());
+        int updatedVacationDays = employee.getVacationDays() - existingRequest.getDays();
+        employee.setVacationDays(updatedVacationDays);
+        employeeService.updateEmployee(employee);
+
+        existingRequest.setStatus(VacationStatus.APPROVED);
+    }
+
+    private void handleRejected(VacationRequest existingRequest) {
+        existingRequest.setStatus(VacationStatus.REJECTED);
     }
 }
