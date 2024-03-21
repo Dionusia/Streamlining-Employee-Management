@@ -6,6 +6,7 @@ import com.example.intro.entity.Request;
 import com.example.intro.repository.CompanyRepository;
 import com.example.intro.service.CompanyService;
 import com.example.intro.service.EmployeeService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,7 @@ public class CompanyController {
     }
 
     @GetMapping("/salaries/{companyId}")
-    public ResponseEntity<Double> getTotalSalariesForCompany(@ModelAttribute Request request) {
+    public ResponseEntity<Double> getTotalSalariesForCompany(@ParameterObject Request request) {
         List<Company> company = companyRepository.findById(request.getCompanyId());
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());

@@ -6,6 +6,7 @@ import com.example.intro.entity.Company;
 import com.example.intro.entity.Request;
 import com.example.intro.repository.CompanyRepository;
 import com.example.intro.service.BonusService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +46,7 @@ public class BonusController {
     }
 
     @GetMapping("/calculate-bonus")
-    public ResponseEntity<Double> calculateBonus(@ModelAttribute Request request) {
+    public ResponseEntity<Double> calculateBonus(@ParameterObject Request request) {
         String requestedSeason = request.getSeason();
         boolean isValidSeason = Arrays.stream(BonusRate.values())
                 .anyMatch(rate -> rate.getSeason().equalsIgnoreCase(requestedSeason));
@@ -58,7 +59,7 @@ public class BonusController {
         return ResponseEntity.ok(bonus);
     }
     @PostMapping("/bonus-company")
-    public ResponseEntity<Object> calculateAndSaveBonuses(@ModelAttribute Request request) {
+    public ResponseEntity<Object> calculateAndSaveBonuses(@ParameterObject Request request) {
         List<Company> company = companyRepository.findById(request.getCompanyId());
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());
