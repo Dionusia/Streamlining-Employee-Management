@@ -40,6 +40,8 @@ public class VacationRequestController {
     public VacationRequestDTO submitVacationRequest(@RequestBody ExtendedVacationRequestDTO requestDTO) {
         return vacationrequestService.submitVacationRequest(requestDTO);
     }
+
+    //accept or reject request
     @PutMapping("/update-requestStatus")
     public VacationRequestDTO updateVacationRequestStatus(@RequestBody VacationRequestDTO requestDTO) {
         return vacationrequestService.updateVacationRequestStatus(requestDTO);

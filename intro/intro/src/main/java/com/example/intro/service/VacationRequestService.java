@@ -50,6 +50,13 @@ public class VacationRequestService {
         return true;
     }
 
+    /**
+     * Submits a vacation request.
+     *
+     * @param vacationRequestDTO The ExtendedVacationRequestDTO object representing the extended vacation request.
+     * @return VacationRequestDTO representing the submitted vacation request.
+     * @throws IllegalArgumentException if the employee does not have enough remaining days for the requested vacation.
+     */
     public VacationRequestDTO submitVacationRequest(ExtendedVacationRequestDTO vacationRequestDTO) {
         long days = ChronoUnit.DAYS.between(vacationRequestDTO.getStartDate().toInstant(), vacationRequestDTO.getEndDate().toInstant()) + 1;
         days -= vacationRequestDTO.getHoliday(); // Subtract holidays
@@ -73,6 +80,14 @@ public class VacationRequestService {
         return modelMapper.map(vacationRequest, VacationRequestDTO.class);
     }
 
+    /**
+     * Updates the status of a vacation request.
+     *
+     * @param requestDTO The VacationRequestDTO object representing the vacation request with updated status.
+     * @return VacationRequestDTO representing the updated vacation request.
+     * @throws EntityNotFoundException if the vacation request is not found.
+     * @throws IllegalArgumentException if the status cannot be changed or the provided status is invalid.
+     */
     public VacationRequestDTO updateVacationRequestStatus(VacationRequestDTO requestDTO) {
         VacationRequest existingRequest = vacationrequestRepository.findById(requestDTO.getId());
 

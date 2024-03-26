@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "api/employee_product")
+@RequestMapping(value = "api/employee-product")
 public class EmployeeProductController {
 
     @Autowired
@@ -43,7 +43,8 @@ public class EmployeeProductController {
         return employee_productService.deleteEmployeeProduct(employee_productDTO);
     }
 
-    @GetMapping("/employee-products/{companyId}")
+    //employee's products by company id
+    @GetMapping("/{companyId}")
     public Map<String, List<Product>> getCompanyProducts(Request request){
         List<Company> company = companyRepository.findById(request.getCompanyId());
         if (company.isEmpty()) {

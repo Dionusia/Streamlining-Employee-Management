@@ -51,12 +51,21 @@ public class BonusService {
         bonusRepository.delete(modelMapper.map(bonusDTO, Bonus.class));
         return true;
     }
+
+    //function for calculation
     public Double calculateBonus(Double salary, String season) {
         BonusRate bonusRate = BonusRate.valueOf(season.toUpperCase());
 
         return BigDecimal.valueOf(salary).multiply(BigDecimal.valueOf(bonusRate.getRate())).doubleValue();
     }
 
+    /**
+     * Calculates and saves bonuses for all employees of a company based on the provided season.
+     *
+     * @param companyId The ID of the company for which bonuses are to be calculated and saved.
+     * @param season    The season for which bonuses are to be calculated.
+     * @return Object containing a list of BonusDTO objects representing the saved bonuses, or a message indicating the company was not found.
+     */
     public Object calculateAndSaveBonuses(Long companyId, String season) {
 
         Company company = companyRepository.findById(Math.toIntExact(companyId)).orElse(null);

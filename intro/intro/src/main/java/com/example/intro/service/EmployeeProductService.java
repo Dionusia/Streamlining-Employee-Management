@@ -52,27 +52,38 @@ public class EmployeeProductService {
         return true;
     }
 
+    /**
+     * Retrieves all products associated with employees of a specific company.
+     *
+     * @param companyId The ID of the company for which products are to be retrieved.
+     * @return A map where the key is a string representation of an employee (name, surname, ID), and the value is a list of products associated with that employee.
+     */
     public Map<String, List<Product>> getAllProductsForCompany(Long companyId) {
-        //retrieve all employee for the given company ID
+        // Retrieve all employees for the given company ID
         List<Employee> employees = employeeRepository.findByCompanyId(companyId);
-        //retrieve all products for these employees
+
+        // Retrieve all products for these employees
         List<EmployeeProductDTO> employeeProducts = getAllEmployeeProducts();
-        //a map where the key is an employee and value a list of products
+
+        // A map where the key is an employee and value a list of products
         Map<String, List<Product>> resultMap = new HashMap<>();
+
         for (Employee e : employees) {
-            for(EmployeeProductDTO p : employeeProducts){
-                if(p.getEmployee().getId().equals(e.getId())){
-                    Product product = p.getProduct();
-                    String employeeKey = e.getName() + " " + e.getSurname();
+            // Build a key for the employee using name, surname, and ID
+            String employeeKey = e.getName() + " " + e.getSurname() + " (" + e.getId() + ")";
 
-                    //if the key doesn't exist initialize empty list
-                    resultMap.putIfAbsent(employeeKey, new ArrayList<>());
+            // Initialize an empty list of products for this employee
+            resultMap.put(employeeKey, new ArrayList<>());
 
-                    resultMap.get(employeeKey).add(product);
+            // Iterate over employee products and add them to the result map
+            for (EmployeeProductDTO p : employeeProducts) {
+                // Check if the employee ID matches and the employee name and surname are the same
+                if (p.getEmployee().getId().equals(e.getId())) {
+                    resultMap.get(employeeKey).add(p.getProduct());
                 }
             }
         }
+
         return resultMap;
     }
-
 }
