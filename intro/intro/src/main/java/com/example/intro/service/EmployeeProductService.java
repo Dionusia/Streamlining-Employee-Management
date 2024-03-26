@@ -61,13 +61,15 @@ public class EmployeeProductService {
         Map<String, List<Product>> resultMap = new HashMap<>();
         for (Employee e : employees) {
             for(EmployeeProductDTO p : employeeProducts){
-                Product product = p.getProduct();
-                String employeeKey = e.getName() + " " + e.getSurname();
+                if(p.getEmployee().getId() == e.getId()){
+                    Product product = p.getProduct();
+                    String employeeKey = e.getName() + " " + e.getSurname();
 
-                //if the key doesn't exist initialize empty list
-                resultMap.putIfAbsent(employeeKey, new ArrayList<>());
+                    //if the key doesn't exist initialize empty list
+                    resultMap.putIfAbsent(employeeKey, new ArrayList<>());
 
-                resultMap.get(employeeKey).add(product);
+                    resultMap.get(employeeKey).add(product);
+                }
             }
         }
         return resultMap;

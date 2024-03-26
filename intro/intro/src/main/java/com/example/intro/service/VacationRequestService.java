@@ -99,6 +99,7 @@ public class VacationRequestService {
         vacationrequestRepository.save(existingRequest);
 
         return modelMapper.map(existingRequest, VacationRequestDTO.class);
+
     }
 
     private void handleApproved(VacationRequest existingRequest) {
