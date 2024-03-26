@@ -18,7 +18,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/company")
-@CrossOrigin
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
@@ -27,23 +26,23 @@ public class CompanyController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/get")
+    @GetMapping()
     public List<CompanyDTO> getCompany(){
         return companyService.getAllCompanies();
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public CompanyDTO saveCompany(@RequestBody CompanyDTO companyDTO){
         return companyService.saveCompany(companyDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public CompanyDTO updateCompany(@RequestBody CompanyDTO companyDTO){
         return companyService.updateCompany(companyDTO);
     }
 
     //delete by ID
-    @DeleteMapping("/delete-company")
+    @DeleteMapping()
     public boolean deleteCompany(@RequestBody CompanyDTO companyDTO){
         return companyService.deleteCompany(companyDTO);
     }
@@ -55,7 +54,7 @@ public class CompanyController {
     }
 
     @GetMapping("/salaries/{companyId}")
-    public ResponseEntity<Double> getTotalSalariesForCompany(@ParameterObject Request request) {
+    public ResponseEntity<Double> getTotalSalariesForCompany(Request request) {
         List<Company> company = companyRepository.findById(request.getCompanyId());
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());

@@ -18,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/bonus")
-@CrossOrigin
 public class BonusController {
 
     @Autowired
@@ -26,56 +25,43 @@ public class BonusController {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @GetMapping("/get")
+    @GetMapping()
     public List<BonusDTO> getBonus(){
         return bonusService.getAllBonus();
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public BonusDTO saveBonus(@RequestBody BonusDTO bonusDTO){
         return bonusService.saveBonus(bonusDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public BonusDTO updateBonus(@RequestBody BonusDTO bonusDTO){
         return bonusService.updateBonus(bonusDTO);
     }
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public boolean deleteBonus(@RequestBody BonusDTO bonusDTO){
         return bonusService.deleteBonus(bonusDTO);
     }
 
-    @GetMapping("/calculate-bonus")
-    public ResponseEntity<Double> calculateBonus(@ParameterObject Request request) {
-        String requestedSeason = request.getSeason();
-        boolean isValidSeason = Arrays.stream(BonusRate.values())
-                .anyMatch(rate -> rate.getSeason().equalsIgnoreCase(requestedSeason));
+    @GetMapping("/bonus-calculation")
+    public ResponseEntity<Double> calculateBonus(Request request) {
+        BonusRate requestedRate = BonusRate.resolveBySeason(request.getSeason());
 
-        if (!isValidSeason) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid season: " + requestedSeason);
-        }
-
-        Double bonus = bonusService.calculateBonus(request.getSalary(), requestedSeason);
+        Double bonus = bonusService.calculateBonus(request.getSalary(), String.valueOf(requestedRate));
         return ResponseEntity.ok(bonus);
     }
+
     @PostMapping("/bonus-company")
-    public ResponseEntity<Object> calculateAndSaveBonuses(@ParameterObject Request request) {
+    public ResponseEntity<Object> calculateAndSaveBonuses(Request request) {
         List<Company> company = companyRepository.findById(request.getCompanyId());
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());
-        }else{
-            String requestedSeason = request.getSeason();
-            boolean isValidSeason = Arrays.stream(BonusRate.values())
-                    .anyMatch(rate -> rate.getSeason().equalsIgnoreCase(requestedSeason));
-
-            if (!isValidSeason) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invalid season: " + requestedSeason);
-            }
         }
 
-        Object result = bonusService.calculateAndSaveBonuses(request.getCompanyId(), request.getSeason());
+        BonusRate requestedRate = BonusRate.resolveBySeason(request.getSeason());
+        Object result = bonusService.calculateAndSaveBonuses(request.getCompanyId(), String.valueOf(requestedRate));
         return ResponseEntity.ok(result);
     }
-
 }
 

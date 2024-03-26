@@ -16,7 +16,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/employee_product")
-@CrossOrigin
 public class EmployeeProductController {
 
     @Autowired
@@ -24,28 +23,28 @@ public class EmployeeProductController {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @GetMapping("/get")
+    @GetMapping()
     public List<EmployeeProductDTO> getEmployeeProducts(){
         return employee_productService.getAllEmployeeProducts();
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public EmployeeProductDTO saveEmployeeProduct(@RequestBody EmployeeProductDTO employee_productDTO){
         return employee_productService.saveEmployeeProduct(employee_productDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public EmployeeProductDTO updateEmployeeProduct(@RequestBody EmployeeProductDTO employee_productDTO){
         return employee_productService.updateEmployeeProduct(employee_productDTO);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public boolean deleteEmployeeProduct(@RequestBody EmployeeProductDTO employee_productDTO){
         return employee_productService.deleteEmployeeProduct(employee_productDTO);
     }
 
     @GetMapping("/employee-products/{companyId}")
-    public Map<String, List<Product>> getCompanyProducts(@ModelAttribute Request request){
+    public Map<String, List<Product>> getCompanyProducts(Request request){
         List<Company> company = companyRepository.findById(request.getCompanyId());
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());

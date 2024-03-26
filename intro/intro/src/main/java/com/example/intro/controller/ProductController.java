@@ -10,27 +10,26 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/product")
-@CrossOrigin
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/get")
+    @GetMapping()
     public List<ProductDTO> getProduct(){
         return productService.getAllProducts();
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public ProductDTO saveProduct(@RequestBody ProductDTO productDTO){
         return productService.saveProduct(productDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ProductDTO updateProduct(@RequestBody ProductDTO productDTO){
         return productService.updateProduct(productDTO);
     }
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public boolean deleteProduct(@RequestBody ProductDTO productDTO){
         return productService.deleteProduct(productDTO);
     }

@@ -15,7 +15,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/employee")
-@CrossOrigin
 public class EmployeeController {
 
     @Autowired
@@ -24,22 +23,22 @@ public class EmployeeController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/get")
+    @GetMapping()
     public List<EmployeeDTO> getEmployee(){
         return employeeService.getAllEmployees();
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.saveEmployee(employeeDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.updateEmployee(employeeDTO);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public boolean deleteEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.deleteEmployee(employeeDTO);
     }

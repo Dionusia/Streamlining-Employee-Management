@@ -61,7 +61,7 @@ public class EmployeeProductService {
         Map<String, List<Product>> resultMap = new HashMap<>();
         for (Employee e : employees) {
             for(EmployeeProductDTO p : employeeProducts){
-                if(p.getEmployee().getId() == e.getId()){
+                if(p.getEmployee().getId().equals(e.getId())){
                     Product product = p.getProduct();
                     String employeeKey = e.getName() + " " + e.getSurname();
 

@@ -11,37 +11,36 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/vacation-request")
-@CrossOrigin
 public class VacationRequestController {
     @Autowired
     private VacationRequestService vacationrequestService;
 
-    @GetMapping("/get")
+    @GetMapping()
     public List<VacationRequestDTO> getVacationRequests(){
         return vacationrequestService.getVacationRequests();
     }
 
-    @PostMapping("/save")
+    @PostMapping()
     public VacationRequestDTO saveVacationRequest(@RequestBody VacationRequestDTO vacationrequestDTO){
         return vacationrequestService.saveVacationRequest(vacationrequestDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public VacationRequestDTO updateVacationRequest(@RequestBody VacationRequestDTO vacationrequestDTO){
         return vacationrequestService.updateVacationRequest(vacationrequestDTO);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public boolean deleteVacationRequest(@RequestBody VacationRequestDTO vacationrequestDTO){
         return vacationrequestService.deleteVacationRequest(vacationrequestDTO);
     }
 
     //ask for vacation
-    @PostMapping("/submit-vacation-request")
+    @PostMapping("/vacation-request")
     public VacationRequestDTO submitVacationRequest(@RequestBody ExtendedVacationRequestDTO requestDTO) {
         return vacationrequestService.submitVacationRequest(requestDTO);
     }
-    @PutMapping("/update-vacation-requestStatus")
+    @PutMapping("/update-requestStatus")
     public VacationRequestDTO updateVacationRequestStatus(@RequestBody VacationRequestDTO requestDTO) {
         return vacationrequestService.updateVacationRequestStatus(requestDTO);
     }
