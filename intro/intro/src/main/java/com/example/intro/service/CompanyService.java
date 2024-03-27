@@ -6,7 +6,10 @@ import com.example.intro.entity.Employee;
 import com.example.intro.repository.CompanyRepository;
 import com.example.intro.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
+<<<<<<< HEAD
 import lombok.extern.log4j.Log4j2;
+=======
+>>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,10 @@ import java.util.List;
 
 @Service
 @Transactional
+<<<<<<< HEAD
 @Log4j2
+=======
+>>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 public class CompanyService {
 
     @Autowired
