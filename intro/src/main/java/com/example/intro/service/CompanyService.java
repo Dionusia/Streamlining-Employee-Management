@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/CompanyService.java
 <<<<<<< HEAD:intro/src/main/java/com/example/intro/service/CompanyService.java
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/CompanyService.java
@@ -8,6 +9,8 @@
 >>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/CompanyService.java
 =======
 >>>>>>> parent of 33d6af5 (Revert "change path folder")
+=======
+>>>>>>> parent of ee5891e (Revert "change path folder")
 =======
 >>>>>>> parent of ee5891e (Revert "change path folder")
 package com.example.intro.service;
@@ -18,6 +21,7 @@ import com.example.intro.entity.Employee;
 import com.example.intro.repository.CompanyRepository;
 import com.example.intro.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/CompanyService.java
@@ -34,6 +38,8 @@ import lombok.extern.log4j.Log4j2;
 >>>>>>> parent of 33d6af5 (Revert "change path folder")
 =======
 >>>>>>> parent of ee5891e (Revert "change path folder")
+=======
+>>>>>>> parent of ee5891e (Revert "change path folder")
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +49,7 @@ import java.util.List;
 
 @Service
 @Transactional
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/CompanyService.java
@@ -57,6 +64,8 @@ import java.util.List;
 >>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/CompanyService.java
 =======
 >>>>>>> parent of 33d6af5 (Revert "change path folder")
+=======
+>>>>>>> parent of ee5891e (Revert "change path folder")
 =======
 >>>>>>> parent of ee5891e (Revert "change path folder")
 public class CompanyService {
@@ -103,6 +112,7 @@ public class CompanyService {
         return totalSalaries;
     }
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/CompanyService.java
@@ -247,3 +257,5 @@ public class CompanyService {
 >>>>>>> parent of ee5891e (Revert "change path folder")
 =======
 >>>>>>> parent of ba7e421 (Revert "change path")
+=======
+>>>>>>> parent of ee5891e (Revert "change path folder")
