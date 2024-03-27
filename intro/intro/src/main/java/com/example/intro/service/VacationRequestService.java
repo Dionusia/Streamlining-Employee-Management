@@ -66,24 +66,13 @@ public class VacationRequestService {
         log.debug("Submitting vacation request...");
         // Calculate working days
         int days = calculateWorkingDays(vacationRequestDTO.getStartDate(), vacationRequestDTO.getEndDate(), vacationRequestDTO.getHoliday());
-
         //retrieve remaining vacation days
         Integer remainingDays = employeeService.getRemainingVacationDays(vacationRequestDTO.getEmployee().getId().intValue());
-
         if (days > remainingDays) {
             throw new IllegalArgumentException("Does not have enough remaining days");
         }
-
-        vacationRequestDTO.setStatus(VacationStatus.PENDING);
-        vacationRequestDTO.setDays((int) days);
-
-        EmployeeDTO employee = employeeService.getEmployeeById(vacationRequestDTO.getEmployee().getId().intValue());
-        vacationRequestDTO.setEmployee(employee);
-
-        VacationRequest vacationRequest = modelMapper.map(vacationRequestDTO, VacationRequest.class);
-        vacationrequestRepository.save(vacationRequest);
-        log.debug("Vacation request submitted successfully.");
-
+        //create the request and save
+        VacationRequest vacationRequest = createRequest(vacationRequestDTO, days);
         return modelMapper.map(vacationRequest, VacationRequestDTO.class);
     }
 
@@ -96,10 +85,8 @@ public class VacationRequestService {
      * @throws IllegalArgumentException if the status cannot be changed or the provided status is invalid.
      */
     public VacationRequestDTO updateVacationRequestStatus(VacationRequestDTO requestDTO) {
-
         log.debug("Updating vacation request status...");
         VacationRequest existingRequest = vacationrequestRepository.findById(requestDTO.getId());
-
         if (existingRequest == null) {
             throw new EntityNotFoundException("Vacation request not found with id: " + requestDTO.getId());
         }
@@ -150,14 +137,11 @@ public class VacationRequestService {
         if (startDate == null || endDate == null) {
             throw new IllegalArgumentException("Start date and end date cannot be null");
         }
-
-        // Convert to LocalDate
+        //convert to localDate
         LocalDate localStartDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localEndDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int workingDays = 0;
-
         LocalDate date = localStartDate;
-
         while (!date.isAfter(localEndDate)) {
             if (date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY) {
                 workingDays++;
@@ -166,5 +150,15 @@ public class VacationRequestService {
         }
         //subtract holiday
         return workingDays - holidays;
+    }
+
+    private VacationRequest createRequest(VacationRequestDTO vacationRequestDTO, int days) {
+        EmployeeDTO employee = employeeService.getEmployeeById(vacationRequestDTO.getEmployee().getId().intValue());
+        vacationRequestDTO.setStatus(VacationStatus.PENDING);
+        vacationRequestDTO.setDays(days);
+        vacationRequestDTO.setEmployee(employee);
+        VacationRequest vacationRequest = modelMapper.map(vacationRequestDTO, VacationRequest.class);
+        vacationrequestRepository.save(vacationRequest);
+        return vacationRequest;
     }
 }
