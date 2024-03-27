@@ -10,6 +10,7 @@ import com.example.intro.repository.EmployeeProductRepository;
 import com.example.intro.repository.EmployeeRepository;
 import com.example.intro.repository.ProductRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @Service
 @Transactional
+@Log4j2
 public class EmployeeProductService {
 
     @Autowired
