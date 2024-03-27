@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/CompanyService.java
 =======
 <<<<<<< HEAD
@@ -198,6 +199,8 @@ public class CompanyService {
 =======
 =======
 >>>>>>> parent of ba7e421 (Revert "change path")
+=======
+>>>>>>> parent of ba7e421 (Revert "change path")
 package com.example.intro.service;
 
 import com.example.intro.dto.CompanyDTO;
@@ -262,6 +265,7 @@ public class CompanyService {
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 721cb0f (change path):intro/intro/src/main/java/com/example/intro/service/CompanyService.java
 =======
 >>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/CompanyService.java
@@ -276,5 +280,7 @@ public class CompanyService {
 =======
 >>>>>>> parent of ba7e421 (Revert "change path")
 >>>>>>> parent of 368f17b (path):intro/src/main/java/com/example/intro/service/CompanyService.java
+=======
+>>>>>>> parent of ba7e421 (Revert "change path")
 =======
 >>>>>>> parent of ba7e421 (Revert "change path")
