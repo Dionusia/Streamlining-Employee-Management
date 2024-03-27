@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/src/main/java/com/example/intro/service/ProductService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -119,6 +120,11 @@ import com.example.intro.dto.EmployeeProductDTO;
 import com.example.intro.dto.ProductDTO;
 import com.example.intro.entity.Employee;
 import com.example.intro.entity.EmployeeProduct;
+=======
+package com.example.intro.service;
+
+import com.example.intro.dto.ProductDTO;
+>>>>>>> parent of d89e26a (path)
 import com.example.intro.entity.Product;
 import com.example.intro.repository.ProductRepository;
 import jakarta.transaction.Transactional;
@@ -128,10 +134,14 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> parent of d89e26a (path)
 
 @Service
 @Transactional
@@ -163,6 +173,7 @@ public class ProductService {
         productRepository.delete(modelMapper.map(productDTO, Product.class));
         return true;
     }
+<<<<<<< HEAD
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -285,3 +296,6 @@ public class ProductService {
     }
 }
 >>>>>>> parent of 9f464f9 (change path folder):intro/intro/src/main/java/com/example/intro/service/ProductService.java
+=======
+}
+>>>>>>> parent of d89e26a (path)

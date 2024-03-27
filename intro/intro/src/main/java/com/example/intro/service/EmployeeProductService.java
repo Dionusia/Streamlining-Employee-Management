@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/src/main/java/com/example/intro/service/EmployeeProductService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -156,6 +157,11 @@ package com.example.intro.service;
 import com.example.intro.dto.EmployeeDTO;
 import com.example.intro.dto.EmployeeProductDTO;
 import com.example.intro.dto.ProductDTO;
+=======
+package com.example.intro.service;
+
+import com.example.intro.dto.EmployeeProductDTO;
+>>>>>>> parent of d89e26a (path)
 import com.example.intro.entity.Employee;
 import com.example.intro.entity.EmployeeProduct;
 import com.example.intro.entity.Product;
@@ -241,6 +247,7 @@ public class EmployeeProductService {
 
         return resultMap;
     }
+<<<<<<< HEAD
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -441,3 +448,6 @@ public class EmployeeProductService {
     }
 }
 >>>>>>> parent of 9f464f9 (change path folder):intro/intro/src/main/java/com/example/intro/service/EmployeeProductService.java
+=======
+}
+>>>>>>> parent of d89e26a (path)

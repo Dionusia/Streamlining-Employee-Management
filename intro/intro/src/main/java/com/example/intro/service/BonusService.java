@@ -9,6 +9,7 @@ import com.example.intro.entity.Company;
 import com.example.intro.entity.Employee;
 import com.example.intro.repository.BonusRepository;
 import com.example.intro.repository.CompanyRepository;
+<<<<<<< HEAD:intro/src/main/java/com/example/intro/service/BonusService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD:intro/src/main/java/com/example/intro/service/BonusService.java
@@ -46,6 +47,9 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 >>>>>>> parent of ba7e421 (Revert "change path")
+=======
+import jakarta.transaction.Transactional;
+>>>>>>> parent of d89e26a (path):intro/intro/src/main/java/com/example/intro/service/BonusService.java
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +61,7 @@ import java.util.List;
 
 @Service
 @Transactional
+<<<<<<< HEAD:intro/src/main/java/com/example/intro/service/BonusService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -78,6 +83,8 @@ import java.util.List;
 =======
 @Log4j2
 >>>>>>> parent of ba7e421 (Revert "change path")
+=======
+>>>>>>> parent of d89e26a (path):intro/intro/src/main/java/com/example/intro/service/BonusService.java
 public class BonusService {
 
     @Autowired
@@ -151,6 +158,7 @@ public class BonusService {
 
         return bonusDTOList;
     }
+<<<<<<< HEAD:intro/src/main/java/com/example/intro/service/BonusService.java
 }
 =======
 package com.example.intro.service;
@@ -346,3 +354,6 @@ public class BonusService {
 }
 >>>>>>> parent of 9f464f9 (change path folder):intro/intro/src/main/java/com/example/intro/service/BonusService.java
 >>>>>>> parent of 4afe5a8 (create new classes because of conflict):intro/intro/src/main/java/com/example/intro/service/BonusService.java
+=======
+}
+>>>>>>> parent of d89e26a (path):intro/intro/src/main/java/com/example/intro/service/BonusService.java

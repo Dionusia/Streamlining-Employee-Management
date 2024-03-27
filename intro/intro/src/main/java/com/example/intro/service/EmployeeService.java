@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/src/main/java/com/example/intro/service/EmployeeService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -147,6 +148,12 @@ import com.example.intro.dto.ProductDTO;
 import com.example.intro.entity.Employee;
 import com.example.intro.entity.EmployeeProduct;
 import com.example.intro.entity.Product;
+=======
+package com.example.intro.service;
+
+import com.example.intro.dto.EmployeeDTO;
+import com.example.intro.entity.Employee;
+>>>>>>> parent of d89e26a (path)
 import com.example.intro.repository.EmployeeProductRepository;
 import com.example.intro.repository.EmployeeRepository;
 import com.example.intro.repository.ProductRepository;
@@ -158,9 +165,13 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
+=======
+import java.util.*;
+>>>>>>> parent of d89e26a (path)
 
 @Service
 @Transactional
@@ -216,6 +227,7 @@ public class EmployeeService {
         List<Employee> employees = employeeRepository.findByCompanyId(companyId);
         return modelMapper.map(employees, new TypeToken<List<EmployeeDTO>>(){}.getType());
     }
+<<<<<<< HEAD
 }
 
 <<<<<<< HEAD
@@ -393,3 +405,6 @@ public class EmployeeService {
 }
 
 >>>>>>> parent of 9f464f9 (change path folder):intro/intro/src/main/java/com/example/intro/service/EmployeeService.java
+=======
+}
+>>>>>>> parent of d89e26a (path)
