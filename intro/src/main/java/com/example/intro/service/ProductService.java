@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/ProductService.java
 <<<<<<< HEAD:intro/src/main/java/com/example/intro/service/ProductService.java
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/ProductService.java
 =======
 >>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/ProductService.java
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder")
 package com.example.intro.service;
 
 import com.example.intro.dto.EmployeeDTO;
@@ -13,6 +16,7 @@ import com.example.intro.entity.EmployeeProduct;
 import com.example.intro.entity.Product;
 import com.example.intro.repository.ProductRepository;
 import jakarta.transaction.Transactional;
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/ProductService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -23,6 +27,8 @@ import lombok.extern.log4j.Log4j2;
 >>>>>>> parent of 9f464f9 (change path folder)
 =======
 >>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/ProductService.java
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder")
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +41,7 @@ import java.util.Map;
 
 @Service
 @Transactional
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/ProductService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -45,6 +52,8 @@ import java.util.Map;
 >>>>>>> parent of 9f464f9 (change path folder)
 =======
 >>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/ProductService.java
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder")
 public class ProductService {
 
     @Autowired
@@ -73,6 +82,7 @@ public class ProductService {
         return true;
     }
 }
+<<<<<<< HEAD
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/ProductService.java
 =======
 package com.example.intro.service;
@@ -184,3 +194,5 @@ public class ProductService {
 >>>>>>> parent of 721cb0f (change path):intro/intro/src/main/java/com/example/intro/service/ProductService.java
 =======
 >>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/ProductService.java
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder")
