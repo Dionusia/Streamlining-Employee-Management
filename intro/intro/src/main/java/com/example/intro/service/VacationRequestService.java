@@ -14,7 +14,10 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.temporal.ChronoUnit;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,8 +64,8 @@ public class VacationRequestService {
      */
     public VacationRequestDTO submitVacationRequest(ExtendedVacationRequestDTO vacationRequestDTO) {
         log.debug("Submitting vacation request...");
-        long days = ChronoUnit.DAYS.between(vacationRequestDTO.getStartDate().toInstant(), vacationRequestDTO.getEndDate().toInstant()) + 1;
-        days -= vacationRequestDTO.getHoliday(); // Subtract holidays
+        // Calculate working days
+        int days = calculateWorkingDays(vacationRequestDTO.getStartDate(), vacationRequestDTO.getEndDate(), vacationRequestDTO.getHoliday());
 
         //retrieve remaining vacation days
         Integer remainingDays = employeeService.getRemainingVacationDays(vacationRequestDTO.getEmployee().getId().intValue());
@@ -140,5 +143,28 @@ public class VacationRequestService {
 
     private void handleRejected(VacationRequest existingRequest) {
         existingRequest.setStatus(VacationStatus.REJECTED);
+    }
+
+    private int calculateWorkingDays(Date startDate, Date endDate, int holidays) {
+        // Check for null values
+        if (startDate == null || endDate == null) {
+            throw new IllegalArgumentException("Start date and end date cannot be null");
+        }
+
+        // Convert to LocalDate
+        LocalDate localStartDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localEndDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int workingDays = 0;
+
+        LocalDate date = localStartDate;
+
+        while (!date.isAfter(localEndDate)) {
+            if (date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY) {
+                workingDays++;
+            }
+            date = date.plusDays(1);
+        }
+        //subtract holiday
+        return workingDays - holidays;
     }
 }
