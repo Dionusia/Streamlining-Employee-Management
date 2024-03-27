@@ -1,5 +1,8 @@
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD:intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java
 package com.example.intro.service;
 
 import com.example.intro.dto.EmployeeDTO;
@@ -10,6 +13,7 @@ import com.example.intro.entity.VacationStatus;
 import com.example.intro.repository.VacationRequestRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 import lombok.extern.log4j.Log4j2;
@@ -17,6 +21,8 @@ import lombok.extern.log4j.Log4j2;
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 =======
 >>>>>>> parent of 9f464f9 (change path folder)
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +36,7 @@ import java.util.function.Consumer;
 
 @Service
 @Transactional
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 @Log4j2
@@ -37,6 +44,8 @@ import java.util.function.Consumer;
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 =======
 >>>>>>> parent of 9f464f9 (change path folder)
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java
 public class VacationRequestService {
 
     @Autowired
@@ -74,6 +83,7 @@ public class VacationRequestService {
      * @throws IllegalArgumentException if the employee does not have enough remaining days for the requested vacation.
      */
     public VacationRequestDTO submitVacationRequest(ExtendedVacationRequestDTO vacationRequestDTO) {
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
         log.debug("Submitting vacation request...");
@@ -81,6 +91,8 @@ public class VacationRequestService {
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 =======
 >>>>>>> parent of 9f464f9 (change path folder)
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java
         long days = ChronoUnit.DAYS.between(vacationRequestDTO.getStartDate().toInstant(), vacationRequestDTO.getEndDate().toInstant()) + 1;
         days -= vacationRequestDTO.getHoliday(); // Subtract holidays
 
@@ -100,6 +112,7 @@ public class VacationRequestService {
         VacationRequest vacationRequest = modelMapper.map(vacationRequestDTO, VacationRequest.class);
         vacationrequestRepository.save(vacationRequest);
 
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
         log.debug("Vacation request submitted successfully.");
@@ -107,6 +120,8 @@ public class VacationRequestService {
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 =======
 >>>>>>> parent of 9f464f9 (change path folder)
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java
         return modelMapper.map(vacationRequest, VacationRequestDTO.class);
     }
 
@@ -119,6 +134,7 @@ public class VacationRequestService {
      * @throws IllegalArgumentException if the status cannot be changed or the provided status is invalid.
      */
     public VacationRequestDTO updateVacationRequestStatus(VacationRequestDTO requestDTO) {
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -127,6 +143,8 @@ public class VacationRequestService {
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 =======
 >>>>>>> parent of 9f464f9 (change path folder)
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java
         VacationRequest existingRequest = vacationrequestRepository.findById(requestDTO.getId());
 
         if (existingRequest == null) {
@@ -151,6 +169,7 @@ public class VacationRequestService {
 
         vacationrequestRepository.save(existingRequest);
 
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 <<<<<<< HEAD
 <<<<<<< HEAD
         log.debug("Vacation request status updated successfully.");
@@ -158,6 +177,8 @@ public class VacationRequestService {
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
 =======
 >>>>>>> parent of 9f464f9 (change path folder)
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java
         return modelMapper.map(existingRequest, VacationRequestDTO.class);
 
     }
@@ -180,6 +201,7 @@ public class VacationRequestService {
         existingRequest.setStatus(VacationStatus.REJECTED);
     }
 }
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
 =======
 package com.example.intro.service;
 
@@ -472,3 +494,5 @@ public class VacationRequestService {
     }
 }
 >>>>>>> parent of 721cb0f (change path):intro/intro/src/main/java/com/example/intro/service/VacationRequestService.java
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/VacationRequestService.java

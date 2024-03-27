@@ -8,8 +8,13 @@ import com.example.intro.entity.Company;
 import com.example.intro.entity.Employee;
 import com.example.intro.repository.BonusRepository;
 import com.example.intro.repository.CompanyRepository;
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/BonusService.java
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
+=======
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/BonusService.java
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +26,10 @@ import java.util.List;
 
 @Service
 @Transactional
+<<<<<<< HEAD:intro/intro/src/main/java/com/example/intro/service/BonusService.java
 @Log4j2
+=======
+>>>>>>> parent of 33d6af5 (Revert "change path folder"):intro/src/main/java/com/example/intro/service/BonusService.java
 public class BonusService {
 
     @Autowired
