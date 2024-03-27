@@ -9,9 +9,12 @@ import com.example.intro.repository.VacationRequestRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lombok.extern.log4j.Log4j2;
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +29,12 @@ import java.util.function.Consumer;
 @Service
 @Transactional
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Log4j2
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
 public class VacationRequestService {
 
     @Autowired
@@ -67,9 +73,12 @@ public class VacationRequestService {
      */
     public VacationRequestDTO submitVacationRequest(ExtendedVacationRequestDTO vacationRequestDTO) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         log.debug("Submitting vacation request...");
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
         long days = ChronoUnit.DAYS.between(vacationRequestDTO.getStartDate().toInstant(), vacationRequestDTO.getEndDate().toInstant()) + 1;
         days -= vacationRequestDTO.getHoliday(); // Subtract holidays
 
@@ -90,9 +99,12 @@ public class VacationRequestService {
         vacationrequestRepository.save(vacationRequest);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         log.debug("Vacation request submitted successfully.");
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
         return modelMapper.map(vacationRequest, VacationRequestDTO.class);
     }
 
@@ -106,10 +118,13 @@ public class VacationRequestService {
      */
     public VacationRequestDTO updateVacationRequestStatus(VacationRequestDTO requestDTO) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         log.debug("Updating vacation request status...");
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
         VacationRequest existingRequest = vacationrequestRepository.findById(requestDTO.getId());
 
         if (existingRequest == null) {
@@ -135,9 +150,12 @@ public class VacationRequestService {
         vacationrequestRepository.save(existingRequest);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         log.debug("Vacation request status updated successfully.");
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
         return modelMapper.map(existingRequest, VacationRequestDTO.class);
 
     }

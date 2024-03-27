@@ -11,9 +11,12 @@ import com.example.intro.repository.CompanyRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lombok.extern.log4j.Log4j2;
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +29,12 @@ import java.util.List;
 @Service
 @Transactional
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Log4j2
 =======
 >>>>>>> parent of b2e81a1 (Revert "Revert "change path folder"")
+=======
+>>>>>>> parent of 9f464f9 (change path folder)
 public class BonusService {
 
     @Autowired
