@@ -59,7 +59,6 @@ public class BonusController {
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());
         }
-
         BonusRate requestedRate = BonusRate.resolveBySeason(request.getSeason());
         Object result = bonusService.calculateAndSaveBonuses(request.getCompanyId(), String.valueOf(requestedRate));
         return ResponseEntity.ok(result);

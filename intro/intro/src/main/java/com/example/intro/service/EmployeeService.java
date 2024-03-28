@@ -69,8 +69,8 @@ public class EmployeeService {
     public List<EmployeeDTO> getEmployeesByCompanyId(Long companyId) {
         List<EmployeeDTO> employeeDTOs = new ArrayList<>();
         //retrieve all employees
-        List<Employee> allEmployees = employeeRepository.findAll(); // Assuming a method to get all employees exists
-        //iterate over all employees and filter by company ID
+        List<Employee> allEmployees = employeeRepository.findAll(); //employees exists
+        //iterate over all employees and match if equals to companyId
         for (Employee employee : allEmployees) {
             if (employee.getCompany().getId().equals(companyId)) {
                 employeeDTOs.add(modelMapper.map(employee, EmployeeDTO.class));

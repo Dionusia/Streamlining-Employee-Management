@@ -55,10 +55,10 @@ public class CompanyService {
     public Double getTotalSalariesForCompany(Long companyId) {
         Optional<Employee> employeeOptional = employeeRepository.findById(Math.toIntExact(companyId));
         List<Employee> employees = employeeOptional.map(Collections::singletonList).orElse(Collections.emptyList());
-        double totalSalaries;
-        totalSalaries = employees.stream()
-                .mapToDouble(employee -> employee.getSalary().doubleValue())
-                .sum();
+        double totalSalaries = 0.0;
+        for (Employee employee : employees) {
+            totalSalaries += employee.getSalary().doubleValue();
+        }
         return totalSalaries;
     }
 }
