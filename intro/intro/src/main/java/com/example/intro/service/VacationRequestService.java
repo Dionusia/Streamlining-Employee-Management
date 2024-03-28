@@ -17,11 +17,9 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Service
 @Transactional
@@ -77,44 +75,56 @@ public class VacationRequestService {
     }
 
     /**
-     * Updates the status of a vacation request.
+     * Updates the status of a vacation request based on the provided request DTO.
      *
-     * @param requestDTO The VacationRequestDTO object representing the vacation request with updated status.
-     * @return VacationRequestDTO representing the updated vacation request.
-     * @throws EntityNotFoundException if the vacation request is not found.
-     * @throws IllegalArgumentException if the status cannot be changed or the provided status is invalid.
+     * @param requestDTO The DTO containing the updated status information.
+     * @return The updated vacation request DTO.
+     * @throws IllegalArgumentException If the provided request status is invalid or the vacation request cannot be found.
      */
     public VacationRequestDTO updateVacationRequestStatus(VacationRequestDTO requestDTO) {
         log.debug("Updating vacation request status...");
-        VacationRequest existingRequest = vacationrequestRepository.findById(requestDTO.getId());
-        if (existingRequest == null) {
-            throw new EntityNotFoundException("Vacation request not found with id: " + requestDTO.getId());
-        }
-        if (!existingRequest.getStatus().equals(VacationStatus.PENDING)) {
-            throw new IllegalArgumentException("Status cannot be changed. Current status: " + existingRequest.getStatus());
-        }
+        Optional<VacationRequest> existingRequestOptional = vacationrequestRepository.findById(Math.toIntExact(requestDTO.getId()));
 
-        String status = String.valueOf(requestDTO.getStatus());
+        if (existingRequestOptional.isPresent()) {
+            VacationRequest existingRequest = existingRequestOptional.get();
 
-        Map<String, Consumer<VacationRequest>> handle = new HashMap<>();
-        handle.put(VacationStatus.APPROVED.name(), this::handleApproved);
-        handle.put(VacationStatus.REJECTED.name(), this::handleRejected);
+            if (!existingRequest.getStatus().equals(VacationStatus.PENDING)) {
+                throw new IllegalArgumentException("Status cannot be changed. Current status: " + existingRequest.getStatus());
+            }
 
-        Consumer<VacationRequest> action = handle.get(status);
-        if (action != null) {
-            action.accept(existingRequest);
+            Function<VacationRequest, VacationRequestDTO> action = actionStatus(requestDTO.getStatus());
+            return action.apply(existingRequest);
+
         } else {
-            throw new IllegalArgumentException("Invalid status: " + status);
+            throw new IllegalArgumentException("Vacation request with ID " + requestDTO.getId() + " not found");
         }
-
-        vacationrequestRepository.save(existingRequest);
-        log.debug("Vacation request status updated successfully.");
-
-        return modelMapper.map(existingRequest, VacationRequestDTO.class);
-
     }
 
-    private void handleApproved(VacationRequest existingRequest) {
+    /**
+     * Determines the action to be performed based on the provided status.
+     *
+     * @param status The status of the vacation request.
+     * @return The function representing the action to be performed.
+     * @throws IllegalArgumentException If the provided status is invalid.
+     */
+    private Function<VacationRequest, VacationRequestDTO> actionStatus(VacationStatus status) {
+        Map<VacationStatus, Function<VacationRequest, VacationRequestDTO>> handle = new HashMap<>();
+        handle.put(VacationStatus.APPROVED, this::handleApproved);
+        handle.put(VacationStatus.REJECTED, this::handleRejected);
+
+        Function<VacationRequest, VacationRequestDTO> action = handle.get(status);
+        return Optional.ofNullable(handle.get(status))
+                .orElseThrow(() -> new IllegalArgumentException("Invalid vacation request status: " + status));
+    }
+
+    /**
+     * Handles the approval of a vacation request.
+     *
+     * @param existingRequest The existing vacation request to be approved.
+     * @return The updated vacation request DTO.
+     * @throws IllegalArgumentException If the employee does not have enough vacation days.
+     */
+    private VacationRequestDTO handleApproved(VacationRequest existingRequest) {
         Integer remainingDays = employeeService.getRemainingVacationDays((int) (long) existingRequest.getEmployee().getId());
         if (existingRequest.getDays() > remainingDays) {
             throw new IllegalArgumentException("Employee does not have enough days");
@@ -126,10 +136,20 @@ public class VacationRequestService {
         employeeService.updateEmployee(employee);
 
         existingRequest.setStatus(VacationStatus.APPROVED);
+        vacationrequestRepository.save(existingRequest);
+        return modelMapper.map(existingRequest, VacationRequestDTO.class);
     }
 
-    private void handleRejected(VacationRequest existingRequest) {
+    /**
+     * Handles the rejection of a vacation request.
+     *
+     * @param existingRequest The existing vacation request to be rejected.
+     * @return The updated vacation request DTO.
+     */
+    private VacationRequestDTO handleRejected(VacationRequest existingRequest) {
         existingRequest.setStatus(VacationStatus.REJECTED);
+        vacationrequestRepository.save(existingRequest);
+        return modelMapper.map(existingRequest, VacationRequestDTO.class);
     }
 
     private int calculateWorkingDays(Date startDate, Date endDate, int holidays) {
