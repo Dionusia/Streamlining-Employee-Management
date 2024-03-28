@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/employee-product")
@@ -46,7 +47,7 @@ public class EmployeeProductController {
     //employee's products by company id
     @GetMapping("/{companyId}")
     public Map<String, List<Product>> getCompanyProducts(Request request){
-        List<Company> company = companyRepository.findById(request.getCompanyId());
+        Optional<Company> company = companyRepository.findById(Math.toIntExact(request.getCompanyId()));
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());
         }

@@ -55,7 +55,7 @@ public class CompanyController {
 
     @GetMapping("/salaries/{companyId}")
     public ResponseEntity<Double> getTotalSalariesForCompany(Request request) {
-        List<Company> company = companyRepository.findById(request.getCompanyId());
+        Optional<Company> company = companyRepository.findById(Math.toIntExact(request.getCompanyId()));
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());
         }

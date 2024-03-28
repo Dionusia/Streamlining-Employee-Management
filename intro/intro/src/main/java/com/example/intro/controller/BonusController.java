@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/bonus")
@@ -54,7 +55,7 @@ public class BonusController {
 
     @PostMapping("/bonus-company")
     public ResponseEntity<Object> calculateAndSaveBonuses(Request request) {
-        List<Company> company = companyRepository.findById(request.getCompanyId());
+        Optional<Company> company = companyRepository.findById(Math.toIntExact(request.getCompanyId()));
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());
         }

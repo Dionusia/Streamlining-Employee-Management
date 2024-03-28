@@ -54,7 +54,7 @@ public class BonusService {
     }
 
     //function for calculation
-    private Double calculateBonus(Double salary, String season) {
+    public Double calculateBonus(Double salary, String season) {
         BonusRate bonusRate = BonusRate.valueOf(season.toUpperCase());
         return BigDecimal.valueOf(salary).multiply(BigDecimal.valueOf(bonusRate.getRate())).doubleValue();
     }
@@ -91,7 +91,7 @@ public class BonusService {
      * @param season      The season for which the bonus is being calculated.
      * @return A BonusDTO object representing the bonus calculated and saved for the employee.
      */
-    private BonusDTO bonusCalculation(EmployeeDTO employeeDTO, Company company, String season) {
+    public BonusDTO bonusCalculation(EmployeeDTO employeeDTO, Company company, String season) {
         Double bonusAmount = calculateBonus(employeeDTO.getSalary().doubleValue(), season);
 
         Bonus bonus = new Bonus();
