@@ -18,10 +18,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -63,31 +60,26 @@ public class EmployeeProductService {
      * @return A map where the key is a string representation of an employee (name, surname, ID), and the value is a list of products associated with that employee.
      */
     public Map<String, List<Product>> getAllProductsForCompany(Long companyId) {
-        // Retrieve all employees for the given company ID
-        List<Employee> employees = employeeRepository.findByCompanyId(companyId);
-
-        // Retrieve all products for these employees
+        //retrieve all employees for the given company ID
+        Optional<Employee> employeeOptional = employeeRepository.findById(Math.toIntExact(companyId));
+        List<Employee> employees = employeeOptional.map(Collections::singletonList).orElse(Collections.emptyList());
+        //retrieve all products for these employees
         List<EmployeeProductDTO> employeeProducts = getAllEmployeeProducts();
-
-        // A map where the key is an employee and value a list of products
+        //map where the key is an employee and value a list of products
         Map<String, List<Product>> resultMap = new HashMap<>();
-
         for (Employee e : employees) {
-            // Build a key for the employee using name, surname, and ID
+            //build a key for the employee using name, surname, and ID
             String employeeKey = e.getName() + " " + e.getSurname() + " (" + e.getId() + ")";
-
-            // Initialize an empty list of products for this employee
+            //initialize an empty list of products for this employee
             resultMap.put(employeeKey, new ArrayList<>());
-
-            // Iterate over employee products and add them to the result map
+            //iterate over employee products and add them to the result map
             for (EmployeeProductDTO p : employeeProducts) {
-                // Check if the employee ID matches and the employee name and surname are the same
+                //check if the employee ID matches and the employee name and surname are the same
                 if (p.getEmployee().getId().equals(e.getId())) {
                     resultMap.get(employeeKey).add(p.getProduct());
                 }
             }
         }
-
         return resultMap;
     }
 }

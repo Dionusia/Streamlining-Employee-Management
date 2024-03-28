@@ -66,7 +66,8 @@ public class EmployeeService {
     }
 
     public List<EmployeeDTO> getEmployeesByCompanyId(Long companyId) {
-        List<Employee> employees = employeeRepository.findByCompanyId(companyId);
+        Optional<Employee> employeeOptional = employeeRepository.findById(Math.toIntExact(companyId));
+        List<Employee> employees = employeeOptional.map(Collections::singletonList).orElse(Collections.emptyList());
         return modelMapper.map(employees, new TypeToken<List<EmployeeDTO>>(){}.getType());
     }
 }

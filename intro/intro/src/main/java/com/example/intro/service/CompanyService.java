@@ -12,7 +12,9 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -51,13 +53,12 @@ public class CompanyService {
     }
 
     public Double getTotalSalariesForCompany(Long companyId) {
-        List<Employee> employees = employeeRepository.findByCompanyId(companyId);
-
+        Optional<Employee> employeeOptional = employeeRepository.findById(Math.toIntExact(companyId));
+        List<Employee> employees = employeeOptional.map(Collections::singletonList).orElse(Collections.emptyList());
         double totalSalaries;
         totalSalaries = employees.stream()
                 .mapToDouble(employee -> employee.getSalary().doubleValue())
                 .sum();
-
         return totalSalaries;
     }
 }
