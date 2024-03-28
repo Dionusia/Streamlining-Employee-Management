@@ -68,18 +68,25 @@ public class BonusService {
      *         If the company with the given ID is not found, returns a message indicating the same.
      */
     public Object calculateAndSaveBonuses(Long companyId, String season) {
+        // Retrieve the company
         Company company = companyRepository.findById(Math.toIntExact(companyId)).orElse(null);
         if (company == null) {
             return "Company not found with id: " + companyId;
         }
-        //retrieve employees
+        // Retrieve employees of the company
         List<EmployeeDTO> employees = employeeService.getEmployeesByCompanyId(companyId);
+        if (employees.isEmpty()) {
+            return "No employees found for company with id: " + companyId;
+        }
+        log.info("Calculating bonus for employee: {}", employees);
+        // List to store bonus DTOs
         List<BonusDTO> bonusDTOList = new ArrayList<>();
-        //call method to calculate and save bonuses for each employee
+        // Calculate and save bonuses for each employee
         for (EmployeeDTO employeeDTO : employees) {
             BonusDTO bonusDTO = bonusCalculation(employeeDTO, company, season);
             bonusDTOList.add(bonusDTO);
         }
+        // Return the list of bonus DTOs
         return bonusDTOList;
     }
 
@@ -93,14 +100,11 @@ public class BonusService {
      */
     public BonusDTO bonusCalculation(EmployeeDTO employeeDTO, Company company, String season) {
         Double bonusAmount = calculateBonus(employeeDTO.getSalary().doubleValue(), season);
-
         Bonus bonus = new Bonus();
         bonus.setEmployee(modelMapper.map(employeeDTO, Employee.class));
         bonus.setCompany(company);
         bonus.setAmount(BigDecimal.valueOf(bonusAmount));
-
         Bonus savedBonus = bonusRepository.save(bonus);
-
         return modelMapper.map(savedBonus, BonusDTO.class);
     }
 }

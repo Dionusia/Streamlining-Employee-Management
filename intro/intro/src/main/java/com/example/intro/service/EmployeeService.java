@@ -13,6 +13,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -66,8 +67,15 @@ public class EmployeeService {
     }
 
     public List<EmployeeDTO> getEmployeesByCompanyId(Long companyId) {
-        Optional<Employee> employeeOptional = employeeRepository.findById(Math.toIntExact(companyId));
-        List<Employee> employees = employeeOptional.map(Collections::singletonList).orElse(Collections.emptyList());
-        return modelMapper.map(employees, new TypeToken<List<EmployeeDTO>>(){}.getType());
+        List<EmployeeDTO> employeeDTOs = new ArrayList<>();
+        //retrieve all employees
+        List<Employee> allEmployees = employeeRepository.findAll(); // Assuming a method to get all employees exists
+        //iterate over all employees and filter by company ID
+        for (Employee employee : allEmployees) {
+            if (employee.getCompany().getId().equals(companyId)) {
+                employeeDTOs.add(modelMapper.map(employee, EmployeeDTO.class));
+            }
+        }
+        return employeeDTOs;
     }
 }
