@@ -336,3 +336,21 @@ java.lang.IllegalArgumentException: Status cannot be changed. Current status: RE
 2024-03-29 18:05:21 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 2024-03-29 18:05:22 [main] INFO  com.example.intro.IntroApplication - Started IntroApplication in 10.453 seconds (process running for 11.291)
 2024-03-29 18:06:28 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-29 18:33:05 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-03-29 18:33:05 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-03-29 18:51:54 [main] INFO  com.example.intro.IntroApplication - Starting IntroApplication using Java 17.0.10 with PID 11932 (C:\Users\dionusia\Documents\GitHub\Streamlining-Employee-Management\intro\intro\target\classes started by dionusia in C:\Users\dionusia\Documents\GitHub\Streamlining-Employee-Management)
+2024-03-29 18:51:54 [main] INFO  com.example.intro.IntroApplication - No active profile set, falling back to 1 default profile: "default"
+2024-03-29 18:51:58 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-03-29 18:51:58 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-03-29 18:51:58 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-03-29 18:51:58 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-29 18:51:58 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-29 18:51:58 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-03-29 18:51:59 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-03-29 18:51:59 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5d5d3a5c
+2024-03-29 18:51:59 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-03-29 18:51:59 [main] WARN  org.hibernate.dialect.Dialect - HHH000511: The 10.23.0 version for [org.hibernate.dialect.PostgreSQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 12.0.0. Check the community dialects project for available legacy versions.
+2024-03-29 18:52:01 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-29 18:52:03 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-29 18:52:04 [main] INFO  com.example.intro.IntroApplication - Started IntroApplication in 10.712 seconds (process running for 11.622)
+2024-03-29 18:52:08 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'

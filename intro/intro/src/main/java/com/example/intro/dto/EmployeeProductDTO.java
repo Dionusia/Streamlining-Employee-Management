@@ -15,5 +15,5 @@ public class EmployeeProductDTO {
     private Long id;
     @JsonIgnoreProperties({"name", "surname", "email", "startDate", "vacationDays", "salary", "employmentType", "company"})
     private Employee employee;
-    private Product product;
+    private ProductDTO product;
 }

@@ -1,9 +1,10 @@
 package com.example.intro.controller;
 
 import com.example.intro.dto.EmployeeProductDTO;
+import com.example.intro.dto.ProductDTO;
 import com.example.intro.entity.Company;
+import com.example.intro.entity.ProductsEmployee;
 import com.example.intro.entity.Request;
-import com.example.intro.entity.Product;
 import com.example.intro.repository.CompanyRepository;
 import com.example.intro.service.EmployeeProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class EmployeeProductController {
 
     //employee's products by company id
     @GetMapping("/{companyId}")
-    public Map<String, List<Product>> getCompanyProducts(Request request){
+    public Map<ProductsEmployee, List<ProductDTO>> getCompanyProducts(Request request){
         Optional<Company> company = companyRepository.findById(Math.toIntExact(request.getCompanyId()));
         if (company.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id " + request.getCompanyId());
