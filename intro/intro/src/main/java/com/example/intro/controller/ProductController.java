@@ -3,6 +3,7 @@ package com.example.intro.controller;
 import com.example.intro.dto.ProductDTO;
 import com.example.intro.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Transactional(readOnly = true)
     @GetMapping()
     public List<ProductDTO> getProduct(){
         return productService.getAllProducts();

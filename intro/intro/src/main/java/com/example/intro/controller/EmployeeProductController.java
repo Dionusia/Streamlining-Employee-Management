@@ -8,6 +8,7 @@ import com.example.intro.repository.CompanyRepository;
 import com.example.intro.service.EmployeeProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,6 +25,7 @@ public class EmployeeProductController {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Transactional(readOnly = true)
     @GetMapping()
     public List<EmployeeProductDTO> getEmployeeProducts(){
         return employee_productService.getAllEmployeeProducts();
@@ -45,6 +47,7 @@ public class EmployeeProductController {
     }
 
     //employee's products by company id
+    @Transactional(readOnly = true)
     @GetMapping("/{companyId}")
     public Map<String, List<Product>> getCompanyProducts(Request request){
         Optional<Company> company = companyRepository.findById(Math.toIntExact(request.getCompanyId()));

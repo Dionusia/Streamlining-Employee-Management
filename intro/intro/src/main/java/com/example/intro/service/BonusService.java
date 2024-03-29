@@ -8,12 +8,12 @@ import com.example.intro.entity.Company;
 import com.example.intro.entity.Employee;
 import com.example.intro.repository.BonusRepository;
 import com.example.intro.repository.CompanyRepository;
-import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,6 +38,7 @@ public class BonusService {
         return bonusDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<BonusDTO> getAllBonus(){
         List<Bonus> bonusList = bonusRepository.findAll();
         return modelMapper.map(bonusList, new TypeToken<List<BonusDTO>>(){}.getType());
@@ -54,6 +55,7 @@ public class BonusService {
     }
 
     //function for calculation
+    @Transactional(readOnly = true)
     public Double calculateBonus(Double salary, String season) {
         BonusRate bonusRate = BonusRate.valueOf(season.toUpperCase());
         return BigDecimal.valueOf(salary).multiply(BigDecimal.valueOf(bonusRate.getRate())).doubleValue();

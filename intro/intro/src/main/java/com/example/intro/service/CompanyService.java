@@ -5,12 +5,12 @@ import com.example.intro.entity.Company;
 import com.example.intro.entity.Employee;
 import com.example.intro.repository.CompanyRepository;
 import com.example.intro.repository.EmployeeRepository;
-import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +33,7 @@ public class CompanyService {
         return companyDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<CompanyDTO> getAllCompanies(){
         List<Company> companyList = companyRepository.findAll();
         return modelMapper.map(companyList, new TypeToken<List<CompanyDTO>>(){}.getType());
@@ -52,6 +53,7 @@ public class CompanyService {
         companyRepository.deleteAll();
     }
 
+    @Transactional(readOnly = true)
     public Double getTotalSalariesForCompany(Long companyId) {
         Optional<Employee> employeeOptional = employeeRepository.findById(Math.toIntExact(companyId));
         List<Employee> employees = employeeOptional.map(Collections::singletonList).orElse(Collections.emptyList());
