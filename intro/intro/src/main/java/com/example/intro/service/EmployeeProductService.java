@@ -1,5 +1,6 @@
 package com.example.intro.service;
 
+import com.example.intro.dto.EmployeeDTO;
 import com.example.intro.dto.EmployeeProductDTO;
 import com.example.intro.entity.Employee;
 import com.example.intro.entity.EmployeeProduct;
@@ -27,6 +28,8 @@ public class EmployeeProductService {
     private EmployeeProductRepository employeeproductRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeService employeeService;
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -59,26 +62,31 @@ public class EmployeeProductService {
      * @return A map where the key is a string representation of an employee (name, surname, ID), and the value is a list of products associated with that employee.
      */
     public Map<String, List<Product>> getAllProductsForCompany(Long companyId) {
-        //retrieve all employees for the given company ID
-        Optional<Employee> employeeOptional = employeeRepository.findById(Math.toIntExact(companyId));
-        List<Employee> employees = employeeOptional.map(Collections::singletonList).orElse(Collections.emptyList());
-        //retrieve all products for these employees
+        // Retrieve all employees for the given company ID
+        List<EmployeeDTO> employees = employeeService.getEmployeesByCompanyId(companyId);
+
+        // Retrieve all products for these employees
         List<EmployeeProductDTO> employeeProducts = getAllEmployeeProducts();
-        //map where the key is an employee and value a list of products
+
+        // A map where the key is an employee and value a list of products
         Map<String, List<Product>> resultMap = new HashMap<>();
-        for (Employee e : employees) {
-            //build a key for the employee using name, surname, and ID
+
+        for (EmployeeDTO e : employees) {
+            // Build a key for the employee using name, surname, and ID
             String employeeKey = e.getName() + " " + e.getSurname() + " (" + e.getId() + ")";
-            //initialize an empty list of products for this employee
+
+            // Initialize an empty list of products for this employee
             resultMap.put(employeeKey, new ArrayList<>());
-            //iterate over employee products and add them to the result map
+
+            // Iterate over employee products and add them to the result map
             for (EmployeeProductDTO p : employeeProducts) {
-                //check if the employee ID matches and the employee name and surname are the same
+                // Check if the employee ID matches and the employee name and surname are the same
                 if (p.getEmployee().getId().equals(e.getId())) {
                     resultMap.get(employeeKey).add(p.getProduct());
                 }
             }
         }
+
         return resultMap;
     }
 }
