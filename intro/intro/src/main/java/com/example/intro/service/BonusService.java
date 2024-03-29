@@ -68,25 +68,24 @@ public class BonusService {
      *         If the company with the given ID is not found, returns a message indicating the same.
      */
     public Object calculateAndSaveBonuses(Long companyId, String season) {
-        // Retrieve the company
+        //retrieve the company
         Company company = companyRepository.findById(Math.toIntExact(companyId)).orElse(null);
         if (company == null) {
             return "Company not found with id: " + companyId;
         }
-        // Retrieve employees of the company
+        //retrieve employees of the company
         List<EmployeeDTO> employees = employeeService.getEmployeesByCompanyId(companyId);
         if (employees.isEmpty()) {
             return "No employees found for company with id: " + companyId;
         }
-        log.info("Calculating bonus for employee: {}", employees);
-        // List to store bonus DTOs
+        //list to store bonus DTOs
         List<BonusDTO> bonusDTOList = new ArrayList<>();
-        // Calculate and save bonuses for each employee
+        //calculate and save bonuses for each employee
         for (EmployeeDTO employeeDTO : employees) {
             BonusDTO bonusDTO = bonusCalculation(employeeDTO, company, season);
             bonusDTOList.add(bonusDTO);
         }
-        // Return the list of bonus DTOs
+        //return the list of bonus DTOs
         return bonusDTOList;
     }
 
