@@ -6,14 +6,14 @@ import com.example.intro.repository.EmployeeProductRepository;
 import com.example.intro.repository.EmployeeRepository;
 import com.example.intro.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -37,6 +37,7 @@ public class EmployeeService {
         return employeeDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<EmployeeDTO> getAllEmployees(){
         List<Employee> employeeList = employeeRepository.findAll();
         return modelMapper.map(employeeList, new TypeToken<List<EmployeeDTO>>(){}.getType());

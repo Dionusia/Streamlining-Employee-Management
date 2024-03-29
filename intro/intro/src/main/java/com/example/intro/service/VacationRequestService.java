@@ -6,19 +6,17 @@ import com.example.intro.dto.VacationRequestDTO;
 import com.example.intro.entity.VacationRequest;
 import com.example.intro.entity.VacationStatus;
 import com.example.intro.repository.VacationRequestRepository;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Service
@@ -38,6 +36,7 @@ public class VacationRequestService {
         return vacationrequestDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<VacationRequestDTO> getVacationRequests(){
         List<VacationRequest> vacationrequestList = vacationrequestRepository.findAll();
         return modelMapper.map(vacationrequestList, new TypeToken<List<VacationRequestDTO>>(){}.getType());

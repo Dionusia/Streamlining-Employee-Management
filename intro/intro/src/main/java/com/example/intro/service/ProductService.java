@@ -3,12 +3,12 @@ package com.example.intro.service;
 import com.example.intro.dto.ProductDTO;
 import com.example.intro.entity.Product;
 import com.example.intro.repository.ProductRepository;
-import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class ProductService {
         return productDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<ProductDTO> getAllProducts() {
         List<Product> productList = productRepository.findAll();
         return modelMapper.map(productList, new TypeToken<List<ProductDTO>>() {

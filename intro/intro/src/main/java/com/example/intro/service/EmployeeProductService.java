@@ -1,15 +1,12 @@
 package com.example.intro.service;
 
-import com.example.intro.dto.EmployeeDTO;
 import com.example.intro.dto.EmployeeProductDTO;
-import com.example.intro.dto.ProductDTO;
 import com.example.intro.entity.Employee;
 import com.example.intro.entity.EmployeeProduct;
 import com.example.intro.entity.Product;
 import com.example.intro.repository.EmployeeProductRepository;
 import com.example.intro.repository.EmployeeRepository;
 import com.example.intro.repository.ProductRepository;
-import jakarta.transaction.Transactional;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -17,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -39,6 +37,7 @@ public class EmployeeProductService {
         return employeeproductDTO;
     }
 
+    @Transactional(readOnly = true)
     public List<EmployeeProductDTO> getAllEmployeeProducts(){
         List<EmployeeProduct> employeeproductsList = employeeproductRepository.findAll();
         return modelMapper.map(employeeproductsList, new TypeToken<List<EmployeeProductDTO>>(){}.getType());
