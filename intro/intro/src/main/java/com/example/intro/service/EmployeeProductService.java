@@ -56,36 +56,36 @@ public class EmployeeProductService {
     }
 
     /**
-     * Retrieves all products associated with employees of a specific company.
+     * Retrieves all products associated with employees of a given company.
      *
      * @param companyId The ID of the company for which products are to be retrieved.
-     * @return A map where the key is a string representation of an employee (name, surname, ID), and the value is a list of products associated with that employee.
+     * @return A map containing employees of the company as keys and lists of products associated with each employee as values.
+     *         Each entry in the map represents an employee and their associated products.
      */
     public Map<ProductsEmployee, List<ProductDTO>> getAllProductsForCompany(Long companyId) {
-        // Retrieve all employees for the given company ID
+        //retrieve all employees for the given company ID
         List<EmployeeDTO> employees = employeeService.getEmployeesByCompanyId(companyId);
-        // Retrieve all products for these employees
+        //retrieve all products for these employees
         List<EmployeeProductDTO> employeeProducts = getAllEmployeeProducts();
 
-        // Create a map to store employees and their products
+        //create a map to store employees and their products
         Map<ProductsEmployee, List<ProductDTO>> resultMap = new HashMap<>();
 
-        // Iterate over each employee
+        //iterate over each employee
         for (EmployeeDTO e : employees) {
             ProductsEmployee et = new ProductsEmployee(e.getId(), e.getName(), e.getSurname());
-            // Create a list to store products for the current employee
+            //create a list to store products for the current employee
             List<ProductDTO> productsForEmployee = new ArrayList<>();
-            // Iterate over all employee products to find products associated with the current employee
+            //iterate over all employee products to find products associated with the current employee
             for (EmployeeProductDTO p : employeeProducts) {
                 if (e.getId().equals(p.getEmployee().getId())) {
-                    // Add the product to the list of products for the current employee
+                    //add the product to the list of products for the current employee
                     productsForEmployee.add(p.getProduct());
                 }
             }
-            // Put the employee and their associated products into the result map
+            //put the employee and their associated products into the result map
             resultMap.put(et, productsForEmployee);
         }
-
         return resultMap;
     }
 
